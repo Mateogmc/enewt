@@ -148,6 +148,8 @@ MonoBehaviour:
   weapon: {fileID: 214190233613916537}
   cannon: {fileID: 5981880256640178978}
   player: {fileID: 0}
+  predictedTarget: {fileID: 4840444532777493339, guid: d6f035c57273e8e40b9084a9fd2f5044, type: 3}
+  targetPoint: {x: 0, y: 0, z: 0}
   aimSpeed: 25
   fireForce: 8
   maxBounces: 3

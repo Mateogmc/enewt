@@ -7,6 +7,8 @@ public class V4AI : MonoBehaviour
     public Weapon weapon;
     public GameObject cannon;
     public GameObject player = null;
+    public GameObject predictedTarget;
+    public Vector3 targetPoint;
     Rigidbody2D rb;
 
     float aimDirection;
@@ -20,18 +22,17 @@ public class V4AI : MonoBehaviour
     float currentAngle;
     bool clockwise;
 
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     private void Update()
     {
         if (player != null)
         {
             CheckDirection();
+            PredictPosition();
             Move();
             Fire(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 0);
+        } else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 
@@ -46,6 +47,12 @@ public class V4AI : MonoBehaviour
         Debug.DrawRay(transform.position, new Vector3(Mathf.Cos(minAngle * Mathf.Deg2Rad), Mathf.Sin(minAngle * Mathf.Deg2Rad), 0) * 6, Color.magenta);
         Debug.DrawRay(transform.position, new Vector3(Mathf.Cos(maxAngle * Mathf.Deg2Rad), Mathf.Sin(maxAngle * Mathf.Deg2Rad), 0) * 6, Color.yellow);
 
+    }
+
+    void PredictPosition()
+    {
+        float rotation = player.GetComponent<PlayerMovement>().rotation;
+        targetPoint = player.transform.position + (new Vector3(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad), 0) * player.GetComponent<PlayerMovement>().currentSpeed);
     }
 
     void Move()
@@ -89,17 +96,22 @@ public class V4AI : MonoBehaviour
     {
         Debug.DrawRay(pos, angle * 5, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(pos, angle);
-        if (hit.collider.tag == "Player")
+        GameObject target = Instantiate(predictedTarget, targetPoint, Quaternion.identity);
+        if (hit == true)
         {
-            weapon.Fire(maxBounces, fireForce, maxBullets);
-        } 
-        else if (hit.collider.tag == "Wall")
-        {
-            if (currentBounces < maxBounces)
+            if (hit.collider.tag == "Player" || (hit.collider.tag == "Prediction" && currentBounces > 0))
             {
-                Fire(hit.point, Vector2.Reflect(angle, hit.normal), ++currentBounces);
+                weapon.Fire(maxBounces, fireForce, maxBullets);
+            }
+            else if (hit.collider.tag == "Wall")
+            {
+                if (currentBounces < maxBounces)
+                {
+                    Fire(hit.point, Vector2.Reflect(angle, hit.normal), ++currentBounces);
+                }
             }
         }
+        Destroy(target);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

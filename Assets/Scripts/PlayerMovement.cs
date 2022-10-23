@@ -8,11 +8,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cannon;
     Rigidbody2D rb;
 
-    float currentSpeed = 0f;
+    public float currentSpeed = 0f;
     float acceleration = 2f;
     float maxSpeed = 2f;
     float drag = 3f;
-    float rotation = 0f;
+    public float rotation = 0f;
     float rotationSpeed = 100f;
     float aimDirection = 0f;
     float aimSpeed = 100f;
