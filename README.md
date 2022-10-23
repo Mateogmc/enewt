@@ -30,3 +30,7 @@
 #### 22/10/2022
 
 - Sincronizado el proyecto con GitHub
+
+#### 23/10/2022
+
+-Añadida predicción de movimiento a V4AI
