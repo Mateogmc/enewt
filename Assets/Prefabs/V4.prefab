@@ -154,6 +154,7 @@ MonoBehaviour:
   fireForce: 8
   maxBounces: 3
   maxBullets: 1
+  fireCooldown: 5
 --- !u!1001 &1708376503437346964
 PrefabInstance:
   m_ObjectHideFlags: 0

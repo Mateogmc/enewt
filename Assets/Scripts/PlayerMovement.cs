@@ -9,25 +9,25 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
 
     public float currentSpeed = 0f;
-    float acceleration = 2f;
+    float acceleration = 4f;
     float maxSpeed = 2f;
     float drag = 3f;
     public float rotation = 0f;
-    float rotationSpeed = 100f;
+    float rotationSpeed = 150f;
     float aimDirection = 0f;
     float aimSpeed = 100f;
     float fireForce = 4f;
     int maxBounces = 2;
     int maxBullets = 3;
+    float fireCooldown = 0.3f;
+    float lastFired = 0f;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         InputCheck();
@@ -99,7 +99,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Fire();
+        }
+    }
+
+    void Fire()
+    {
+        if (Time.time >= lastFired + fireCooldown)
+        {
             weapon.Fire(maxBounces, fireForce, maxBullets);
+            lastFired = Time.time;
         }
     }
 
@@ -107,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.Translate(new Vector3(currentSpeed, 0, 0) * Time.deltaTime);
         transform.eulerAngles = Vector3.forward * rotation;
-        cannon.transform.position = transform.position + (2 * new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 5);
+        cannon.transform.position = transform.position + (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 2);
         cannon.transform.eulerAngles = Vector3.forward * aimDirection;
     }
 
@@ -116,9 +125,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Tank" || collision.gameObject.tag == "Player")
         {
             currentSpeed = -(currentSpeed / 2);
-        } else if (collision.gameObject.tag == "Wall")
-        {
             rb.velocity = Vector2.zero;
+
         } else if (collision.gameObject.tag == "Bullet")
         {
             //Destroy(gameObject);

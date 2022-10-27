@@ -7,11 +7,12 @@ TagManager:
   - Wall
   - Bullet
   - Tank
+  - Prediction
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
   - 

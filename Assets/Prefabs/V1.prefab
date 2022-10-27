@@ -16,7 +16,7 @@ GameObject:
   m_Layer: 0
   m_Name: V1
   m_TagString: Tank
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -152,6 +152,7 @@ MonoBehaviour:
   fireForce: 4
   maxBounces: 2
   maxBullets: 1
+  fireCooldown: 3
 --- !u!1001 &7721730764179043311
 PrefabInstance:
   m_ObjectHideFlags: 0
