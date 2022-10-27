@@ -34,3 +34,12 @@
 #### 23/10/2022
 
 - Añadida predicción de movimiento a V4AI
+
+#### 26/10/2022
+
+- Creado el tanque móbil normal (V2AI)
+
+#### 27/10/2022
+
+- Creado el script para V2AI
+- Implementado un sistema de pathfinding primitivo para V2AI
