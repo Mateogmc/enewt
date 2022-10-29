@@ -5,6 +5,7 @@
 #### 01/09/2022 - 30/09/2022
 
 - Familiarizándome con Unity, creando proyectos de práctica y haciendo pruebas con librerías externas
+- Estudiando y practicando matemáticas de vectores y trigonometría
 
 #### 29/09/2022
 
