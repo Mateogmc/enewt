@@ -2,6 +2,10 @@
 
 ### Proyecto de fin de ciclo de Desarrollo de Aplicaciones Multiplataforma
 
+#### 01/09/2022 - 30/09/2022
+
+- Familiarizándome con Unity, creando proyectos de práctica y haciendo pruebas con librerías externas
+
 #### 29/09/2022
 
 - Creado el repositorio del proyecto
@@ -34,6 +38,10 @@
 #### 23/10/2022
 
 - Añadida predicción de movimiento a V4AI
+
+#### 25/10/2022
+
+- Aprendiendo pathfinding con la librería *AStar*
 
 #### 26/10/2022
 
