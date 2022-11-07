@@ -61,3 +61,11 @@
 
 - Añadido terreno de agua, por el que los tanques no pasan pero los proyectiles si
 - Cambiada la detección de objetivos para disparar a ignorar tanques enemigos y agua
+
+#### 05/11/2022
+
+- Añadido soporte para mando
+
+#### 06/11/2022
+
+- Añadido esquema personalizable de controles via JSON
