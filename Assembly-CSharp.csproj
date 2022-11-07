@@ -60,10 +60,11 @@
     <Compile Include="Assets\Scripts\V2AI.cs" />
     <Compile Include="Assets\Scripts\V4AI.cs" />
     <Compile Include="Assets\Scripts\V1AI.cs" />
+    <Compile Include="Assets\Scripts\V3AI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Tank.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
-    <Compile Include="Assets\Scripts\V3AI.cs" />
+    <Compile Include="Assets\Scripts\JSONReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

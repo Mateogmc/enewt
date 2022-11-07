@@ -9,6 +9,7 @@ public class V4AI : MonoBehaviour
     public GameObject player = null;
     public GameObject predictedTarget;
     public Vector3 targetPoint;
+    public LayerMask ignoreLayer;
     Vector2 initialPosition;
     Rigidbody2D rb;
 
@@ -106,7 +107,7 @@ public class V4AI : MonoBehaviour
     void Fire(Vector2 pos, Vector2 angle, int currentBounces)
     {
         //Debug.DrawRay(pos, angle * 5, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(pos, angle);
+        RaycastHit2D hit = Physics2D.Raycast(pos, angle, 100f, ~ignoreLayer);
         GameObject target = Instantiate(predictedTarget, targetPoint, Quaternion.identity);
         if (hit == true)
         {

@@ -52,3 +52,12 @@
 
 - Creado el script para V2AI
 - Implementado un sistema de pathfinding primitivo para V2AI
+
+#### 01/11/2022
+
+- Creado el tanque de ráfagas (V3AI) (No es completamente funcional)
+
+#### 02/11/2022
+
+- Añadido terreno de agua, por el que los tanques no pasan pero los proyectiles si
+- Cambiada la detección de objetivos para disparar a ignorar tanques enemigos y agua

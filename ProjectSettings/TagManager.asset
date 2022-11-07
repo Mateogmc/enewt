@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Tank
   - Prediction
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - Obstacle
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Bullet
   - 
   - 
   - 

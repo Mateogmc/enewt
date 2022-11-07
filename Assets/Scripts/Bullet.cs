@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody2D rb;
     Vector2 lastVelocity;
+    public LayerMask water;
 
     public int maxBounces;
     int currentBounces = 0;
@@ -13,6 +14,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(4, 7, true);
     }
 
     private void Update()
@@ -22,10 +24,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Wall" || currentBounces >= maxBounces)
+        if (collision.gameObject.tag == "Water")
+        {
+            return;
+        }
+        else if (collision.gameObject.tag != "Wall" || currentBounces >= maxBounces)
         {
             Destroy(gameObject);
-        } else if (collision.gameObject.tag == "Wall")
+        }  
+        else if (collision.gameObject.tag == "Wall")
         {
             float x = collision.contacts[0].normal.x;
             float y = collision.contacts[0].normal.y;

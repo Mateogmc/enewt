@@ -9,6 +9,7 @@ public class V2AI : MonoBehaviour
     public Weapon weapon;
     public GameObject cannon;
     public GameObject player;
+    public LayerMask ignoreLayer;
     GameObject gameObj;
     Transform target;
 
@@ -150,7 +151,7 @@ public class V2AI : MonoBehaviour
 
     async void Fire()
     {
-        RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
+        RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
         if (hit.collider.tag == "Player")
         {
             await Task.Delay(fireDelay);
@@ -158,7 +159,7 @@ public class V2AI : MonoBehaviour
             {
                 if (gameObj != null)
                 {
-                    hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
+                    hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
                     if (hit.collider.tag == "Player")
                     {
                         weapon.Fire(maxBounces, fireForce, maxBullets);

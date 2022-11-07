@@ -9,6 +9,7 @@ public class V3AI : MonoBehaviour
     public Weapon weapon;
     public GameObject cannon;
     public GameObject player;
+    public LayerMask ignoreLayer;
     GameObject gameObj;
     Transform target;
 
@@ -21,7 +22,6 @@ public class V3AI : MonoBehaviour
     float nextWayPointDistance = 0.8f;
     bool reachedEndOfPath = false;
     public float minDistance;
-    bool strafing;
 
     public float currentSpeed = 0f;
     public float acceleration;
@@ -109,72 +109,32 @@ public class V3AI : MonoBehaviour
         }
         Debug.Log(rotation + " " + angle);
 
-        RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
-        if ((transform.position - player.transform.position).magnitude < minDistance)
-        {
-            strafing = true;
-        } else
-        {
-            strafing = false;
-        }
 
-        if (strafing)
+        if (lastRotation < 50 && angle > 310)
         {
-            angle += 3;
-            if (angle >= 360)
-            {
-                angle -= 360;
-            }
-            if (lastRotation < 30 && angle > 330)
-            {
-                rotation += 360;
-            }
-            else if (lastRotation > 330 && angle < 30)
-            {
-                rotation -= 360;
-            }
-            if (rotation < angle - 3)
-            {
-                rotation += rotationSpeed * Time.deltaTime;
-            }
-            else if (rotation > angle + 3)
-            {
-                rotation -= rotationSpeed * Time.deltaTime;
-            }
-            rotation = angle + 60;
+            rotation += 360;
+        }
+        else if (lastRotation > 310 && angle < 50)
+        {
+            rotation -= 360;
+        }
+        if (rotation < angle - 3)
+        {
+            rotation += rotationSpeed * Time.deltaTime;
+        }
+        else if (rotation > angle + 3)
+        {
+            rotation -= rotationSpeed * Time.deltaTime;
+        }
+        else
+        {
             currentSpeed += acceleration * Time.deltaTime;
             if (currentSpeed > maxSpeed)
             {
                 currentSpeed = maxSpeed;
             }
         }
-        else
-        {
-            if (lastRotation < 30 && angle > 330)
-            {
-                rotation += 360;
-            }
-            else if (lastRotation > 330 && angle < 30)
-            {
-                rotation -= 360;
-            }
-            if (rotation < angle - 3)
-            {
-                rotation += rotationSpeed * Time.deltaTime;
-            }
-            else if (rotation > angle + 3)
-            {
-                rotation -= rotationSpeed * Time.deltaTime;
-            }
-            else
-            {
-                currentSpeed += acceleration * Time.deltaTime;
-                if (currentSpeed > maxSpeed)
-                {
-                    currentSpeed = maxSpeed;
-                }
-            }
-        }
+
 
         if (rotation > 360)
         {
@@ -200,7 +160,7 @@ public class V3AI : MonoBehaviour
 
     async void Fire()
     {
-        RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
+        RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
         if (hit.collider.tag == "Player")
         {
             await Task.Delay(fireDelay);
@@ -208,7 +168,7 @@ public class V3AI : MonoBehaviour
             {
                 if (gameObj != null)
                 {
-                    hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
+                    hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
                     if (hit.collider.tag == "Player")
                     {
                         for (int i = 0; i < maxBullets; i++)
@@ -219,9 +179,9 @@ public class V3AI : MonoBehaviour
                                 await Task.Delay(500);
                             }
                         }
-                        lastFired = Time.time;
                     }
                 }
+                lastFired = Time.time;
             }
         }
     }

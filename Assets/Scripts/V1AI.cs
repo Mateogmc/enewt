@@ -7,6 +7,7 @@ public class V1AI: MonoBehaviour
     public Weapon weapon;
     public GameObject cannon;
     public GameObject player = null;
+    public LayerMask ignoreLayer;
     Vector3 initialPosition;
     Rigidbody2D rb;
 
@@ -94,7 +95,7 @@ public class V1AI: MonoBehaviour
     {
         if (Time.time >= lastFired + fireCooldown)
         {
-            RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)));
+            RaycastHit2D hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
             if (hit.collider.tag == "Player")
             {
                 weapon.Fire(maxBounces, fireForce, maxBullets);

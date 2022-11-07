@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 933760764123443611}
   - component: {fileID: 933760764123443610}
   - component: {fileID: 933760764123443615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: V1
   m_TagString: Tank
   m_Icon: {fileID: 0}
@@ -148,6 +148,9 @@ MonoBehaviour:
   weapon: {fileID: 1075176736068364319}
   cannon: {fileID: 6850211480256768580}
   player: {fileID: 0}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 80
   aimSpeed: 80
   fireForce: 4
   maxBounces: 2
@@ -208,9 +211,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4282208306923796828, guid: 8151d90c7f0765c45bac5aabd8d867e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4951346079153263542, guid: 8151d90c7f0765c45bac5aabd8d867e5, type: 3}
       propertyPath: m_Name
       value: Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951346079153263542, guid: 8151d90c7f0765c45bac5aabd8d867e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8151d90c7f0765c45bac5aabd8d867e5, type: 3}
