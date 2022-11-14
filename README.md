@@ -69,3 +69,15 @@
 #### 06/11/2022
 
 - Añadido esquema personalizable de controles via JSON
+
+#### 07/11/2022 - 12/11/2022
+
+- Creadas las texturas del terreno, de los tanques y de los proyectiles
+
+#### 13/11/2022
+
+- Iniciada la producción de la música y el sonido
+
+#### 14/11/2022
+
+- Creados varios diseños de botón para la interfaz y creado un menú principal rudimentario

@@ -30,14 +30,14 @@ public class V3AI : MonoBehaviour
     public float rotation;
     public float rotationSpeed;
     float lastRotation;
-    float aimDirection = 0f;
+    public float aimDirection = 0f;
     public float aimSpeed;
     public float fireForce;
     public int maxBounces;
     public int maxBullets;
     public float fireCooldown;
     float lastFired;
-    int fireDelay = 2000;
+    int fireDelay = 1000;
 
     private void Start()
     {
@@ -107,7 +107,6 @@ public class V3AI : MonoBehaviour
         {
             currentWaypoint++;
         }
-        Debug.Log(rotation + " " + angle);
 
 
         if (lastRotation < 50 && angle > 310)
@@ -149,7 +148,7 @@ public class V3AI : MonoBehaviour
 
         transform.Translate(new Vector3(currentSpeed, 0, 0) * Time.deltaTime);
         transform.eulerAngles = Vector3.forward * rotation;
-        cannon.transform.position = transform.position + (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 2);
+        cannon.transform.position = transform.position + 2 * (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 3);
         cannon.transform.eulerAngles = Vector3.forward * aimDirection;
     }
 
@@ -171,17 +170,18 @@ public class V3AI : MonoBehaviour
                     hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
                     if (hit.collider.tag == "Player")
                     {
+                        lastFired = Time.time;
                         for (int i = 0; i < maxBullets; i++)
                         {
-                            if (gameObj != null)
+                            hit = Physics2D.Raycast(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 100f, ~ignoreLayer);
+                            if (gameObj != null && player != null && hit.collider.tag == "Player")
                             {
                                 weapon.Fire(maxBounces, fireForce, maxBullets);
-                                await Task.Delay(500);
+                                await Task.Delay(200);
                             }
                         }
                     }
                 }
-                lastFired = Time.time;
             }
         }
     }
@@ -191,6 +191,11 @@ public class V3AI : MonoBehaviour
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Tank" || collision.gameObject.tag == "Player")
         {
             currentSpeed = -currentSpeed / 2;
+            rb.velocity = Vector2.zero;
+        }
+        else if (collision.gameObject.tag == "Void")
+        {
+            currentSpeed = 0;
             rb.velocity = Vector2.zero;
         }
         else if (collision.gameObject.tag == "Bullet")

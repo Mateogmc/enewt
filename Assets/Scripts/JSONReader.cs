@@ -38,8 +38,7 @@ public class JSONReader
     [System.Serializable]
     public class Gamepad
     {
-        public int aimLeft;
-        public int aimRight;
+        public string aim;
         public int fire;
         public string horizontal;
         public string forward;
@@ -54,6 +53,11 @@ public class JSONReader
             control = JsonUtility.FromJson<Controls>(reader.ReadToEnd());
         }
         return id == 1 ? control.player1 : control.player2;
+    }
+
+    void Start()
+    {
+        InitializeControls();
     }
 
     public void InitializeControls()
@@ -80,15 +84,13 @@ public class JSONReader
         controls.player2.keyboard.forward = (int)KeyCode.W;
         controls.player2.keyboard.backwards = (int)KeyCode.S;
 
-        controls.player1.gamepad.aimLeft = (int)KeyCode.Joystick1Button4;
-        controls.player1.gamepad.aimRight = (int)KeyCode.Joystick1Button5;
-        controls.player1.gamepad.fire = (int)KeyCode.Joystick1Button0;
+        controls.player1.gamepad.aim = "Aim1";
+        controls.player1.gamepad.fire = (int)KeyCode.Joystick1Button5;
         controls.player1.gamepad.horizontal = "Horizontal1";
         controls.player1.gamepad.forward = "Forward1";
         controls.player1.gamepad.backwards = "Backwards1";
 
-        controls.player2.gamepad.aimLeft = (int)KeyCode.Joystick2Button4;
-        controls.player2.gamepad.aimRight = (int)KeyCode.Joystick2Button5;
+        controls.player2.gamepad.aim = "Aim2";
         controls.player2.gamepad.fire = (int)KeyCode.Joystick2Button0;
         controls.player2.gamepad.horizontal = "Horizontal2";
         controls.player2.gamepad.forward = "Forward2";

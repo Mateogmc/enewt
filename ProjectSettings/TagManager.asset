@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Tank
   - Prediction
+  - Void
   - Water
   layers:
   - Default
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Enemy
   - Bullet
-  - 
+  - Void
   - 
   - 
   - 
@@ -45,4 +46,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 556589243
+    locked: 0
+  - name: Foreground
+    uniqueID: 196775721
+    locked: 0
+  - name: Player
+    uniqueID: 3761761141
+    locked: 0
+  - name: Fade
+    uniqueID: 630368315
     locked: 0

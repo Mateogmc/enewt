@@ -13,7 +13,7 @@ public class V4AI : MonoBehaviour
     Vector2 initialPosition;
     Rigidbody2D rb;
 
-    float aimDirection;
+    public float aimDirection;
     public float aimSpeed;
     public float fireForce;
     public int maxBounces;
@@ -49,8 +49,8 @@ public class V4AI : MonoBehaviour
     void CheckDirection()
     {
         currentAngle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
-        minAngle = currentAngle - 100f;
-        maxAngle = currentAngle + 100f;
+        minAngle = currentAngle - 160f;
+        maxAngle = currentAngle + 160f;
 
         /*Debug.DrawRay(transform.position, new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) * 6, Color.black);
         Debug.DrawRay(transform.position, new Vector3(Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad), 0) * 6, Color.green);
@@ -61,8 +61,8 @@ public class V4AI : MonoBehaviour
 
     void PredictPosition()
     {
-        float rotation = player.GetComponent<PlayerMovement>().rotation;
-        targetPoint = player.transform.position + (new Vector3(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad), 0) * player.GetComponent<PlayerMovement>().currentSpeed);
+        float rotation = player.GetComponent<PlayerController>().rotation;
+        targetPoint = player.transform.position + (new Vector3(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad), 0) * player.GetComponent<PlayerController>().currentSpeed);
     }
 
     void Move()
@@ -98,7 +98,7 @@ public class V4AI : MonoBehaviour
         }
         //Debug.Log(minAngle + ", " + maxAngle + ", " + aimDirection);
         oldAngle = currentAngle;
-        cannon.transform.position = transform.position + (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 2);
+        cannon.transform.position = transform.position + 2 * (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 3);
         cannon.transform.eulerAngles = Vector3.forward * aimDirection;
 
         transform.position = initialPosition;
@@ -115,8 +115,8 @@ public class V4AI : MonoBehaviour
             {
                 if (Time.time >= lastFired + fireCooldown)
                 {
-                    weapon.Fire(maxBounces, fireForce, maxBullets);
                     lastFired = Time.time;
+                    weapon.Fire(maxBounces, fireForce, maxBullets);
                 }
             }
             else if (hit.collider.tag == "Wall")

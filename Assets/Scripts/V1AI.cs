@@ -11,7 +11,7 @@ public class V1AI: MonoBehaviour
     Vector3 initialPosition;
     Rigidbody2D rb;
 
-    float aimDirection;
+    public float aimDirection;
     public float aimSpeed;
     public float fireForce;
     public int maxBounces;
@@ -85,7 +85,7 @@ public class V1AI: MonoBehaviour
         }
         //Debug.Log(minAngle + ", " + maxAngle + ", " + aimDirection);
         oldAngle = currentAngle;
-        cannon.transform.position = transform.position + (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 2);
+        cannon.transform.position = transform.position + 2 * (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 3);
         cannon.transform.eulerAngles = Vector3.forward * aimDirection;
 
         transform.position = initialPosition;

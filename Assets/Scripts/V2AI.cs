@@ -29,14 +29,14 @@ public class V2AI : MonoBehaviour
     public float rotation;
     public float rotationSpeed;
     float lastRotation;
-    float aimDirection = 0f;
+    public float aimDirection = 0f;
     public float aimSpeed;
     public float fireForce;
     public int maxBounces;
     public int maxBullets;
     public float fireCooldown;
     float lastFired;
-    int fireDelay = 2000;
+    public int fireDelay = 2000;
 
     private void Start()
     {
@@ -140,7 +140,7 @@ public class V2AI : MonoBehaviour
 
         transform.Translate(new Vector3(currentSpeed, 0, 0) * Time.deltaTime);
         transform.eulerAngles = Vector3.forward * rotation;
-        cannon.transform.position = transform.position + (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 2);
+        cannon.transform.position = transform.position + 2 * (new Vector3(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad), 0) / 3);
         cannon.transform.eulerAngles = Vector3.forward * aimDirection;
     }
 
@@ -177,6 +177,11 @@ public class V2AI : MonoBehaviour
             currentSpeed = -(currentSpeed / 2);
             rb.velocity = Vector2.zero;
 
+        }
+        else if (collision.gameObject.tag == "Void")
+        {
+            currentSpeed = 0;
+            rb.velocity = Vector2.zero;
         }
         else if (collision.gameObject.tag == "Bullet")
         {
