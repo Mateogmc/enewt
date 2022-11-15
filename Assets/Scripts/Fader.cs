@@ -29,5 +29,9 @@ public class Fader : MonoBehaviour
             alpha -= 1f * Time.deltaTime;
         }
         sr.color = new Color(0f, 0f, 0f, alpha);
+        if (alpha < 0f || alpha > 1f)
+        {
+            Destroy(gameObject);
+        }
     }
 }

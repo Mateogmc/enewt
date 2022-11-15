@@ -10,6 +10,7 @@ TagManager:
   - Prediction
   - Void
   - Water
+  - MenuMusic
   layers:
   - Default
   - TransparentFX
@@ -55,6 +56,12 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3761761141
+    locked: 0
+  - name: Slider
+    uniqueID: 1329829219
+    locked: 0
+  - name: UI
+    uniqueID: 17846725
     locked: 0
   - name: Fade
     uniqueID: 630368315

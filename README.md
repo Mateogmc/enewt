@@ -81,3 +81,9 @@
 #### 14/11/2022
 
 - Creados varios diseños de botón para la interfaz y creado un menú principal rudimentario
+
+#### 15/11/2022
+
+- Finalizado el menú principal
+- Creado menú de opciones
+- Creado sistema de guardado de opciones (Por ahora audio, en el futuro avance en niveles)

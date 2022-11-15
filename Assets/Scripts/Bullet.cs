@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         rb.velocity = rb.velocity.normalized * magnitude;
         lastVelocity = rb.velocity;
         rb.rotation = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-        if (rb.velocity == Vector2.zero)
+        if (rb.velocity == Vector2.zero || transform.position.x < -5 || transform.position.x > 5 || transform.position.y < -4.5 || transform.position.y > 5.5)
         {
             Destroy(gameObject);
         }

@@ -21,10 +21,12 @@ public class MenuNavigator : MonoBehaviour
     int selection;
     bool movedDown = false;
     bool movedUp = false;
+    bool changingScene;
 
 
     void Start()
     {
+        Options.InitialSettings();
         selection = 0;
         reader = new JSONReader();
         controls = reader.GetControls(1);
@@ -32,42 +34,55 @@ public class MenuNavigator : MonoBehaviour
         multiplayerRenderer = multiplayer.GetComponent<SpriteRenderer>();
         optionsRenderer = options.GetComponent<SpriteRenderer>();
         exitRenderer = exit.GetComponent<SpriteRenderer>();
+        changingScene = true;
+        EnterScene();
     }
 
     private void Update()
     {
-        SelectionManagement();
-        InputDetection();
+        if (!changingScene)
+        {
+            SelectionManagement();
+            InputDetection();
+        }
     }
 
     async void OptionSelected()
     {
+        Fader toBlack = Instantiate(fader);
+        toBlack.fading = true;
+        changingScene = true;
+        await Task.Delay(1000);
         switch (selection)
         {
             case 0:
-                Instantiate(fader);
+                Loader.StartSingleplayer();
                 break;
 
             case 1:
-                Instantiate(fader);
+
                 break;
 
             case 2:
-                Fader toBlack = Instantiate(fader);
-                toBlack.fading = true;
-                await Task.Delay(1000);
-                SceneManager.LoadScene("Level1");
+                Loader.ChangeScene("Options");
                 break;
 
             case 3:
-                Instantiate(fader);
+                Application.Quit();
                 break;
         }
     }
 
-     void InputDetection()
+    async void EnterScene()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        Instantiate(fader);
+        await Task.Delay(1000);
+        changingScene = false;
+    }
+
+    void InputDetection()
+    {
+        if (Input.GetKeyDown((KeyCode)controls.keyboard.fire) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown((KeyCode)controls.gamepad.fire))
         {
             OptionSelected();
         }

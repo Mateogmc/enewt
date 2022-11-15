@@ -162,8 +162,8 @@ MonoBehaviour:
   rotationSpeed: 150
   aimDirection: 0
   aimSpeed: 100
-  fireForce: 4
-  maxBounces: 1
+  fireForce: 6
+  maxBounces: 0
   maxBullets: 5
   fireCooldown: 5
 --- !u!114 &7455048116951178785
