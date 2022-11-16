@@ -6,9 +6,9 @@ public class Fader : MonoBehaviour
 {
     SpriteRenderer sr;
 
-    public bool fading;
+    public bool unFading;
     bool flag = true;
-    float alpha = 1f;
+    float alpha = 0f;
 
     private void Start()
     {
@@ -17,19 +17,19 @@ public class Fader : MonoBehaviour
 
     private void Update()
     {
-        if (fading && flag)
+        if (unFading && flag)
         {
-            alpha = 0f;
+            alpha = 1f;
             flag = false;
-        } else if (fading)
-        {
-            alpha += 1f * Time.deltaTime;
-        } else
+        } else if (unFading)
         {
             alpha -= 1f * Time.deltaTime;
+        } else
+        {
+            alpha += 1f * Time.deltaTime;
         }
         sr.color = new Color(0f, 0f, 0f, alpha);
-        if (alpha < 0f || alpha > 1f)
+        if (alpha < 0f)
         {
             Destroy(gameObject);
         }

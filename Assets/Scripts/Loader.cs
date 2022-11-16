@@ -2,18 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
 
 public class Loader : MonoBehaviour
 {
-    AudioManager audioManager;
-    public static int currentLevel;
+    static AudioManager menuMusic;
+    static AudioManager gameMusic;
+    static int currentLevel;
+    static List<int> levelsRemaining = new List<int>();
+    public static int multiplayerLevels = 1;
+    public static bool singlePlayer;
+    public static int fadingTime = 1200;
+
     void Start()
     {
         Options.InitialSettings();
-        audioManager = GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<AudioManager>();
-        audioManager.PlayMusic();
+        menuMusic = GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<AudioManager>();
+        gameMusic = GameObject.FindGameObjectWithTag("GameMusic").GetComponent<AudioManager>();
+        menuMusic.PlayMusic();
         ChangeScene("MainMenu");
+    }
+
+    public static void PlayMenuMusic()
+    {
+        gameMusic.PauseMusic();
+        menuMusic.PlayMusic();
+    }
+
+    public static void PlayGameMusic()
+    {
+        menuMusic.PauseMusic();
+        gameMusic.PlayMusic();
     }
 
     public static void ChangeScene(string scenePath)
@@ -21,14 +39,49 @@ public class Loader : MonoBehaviour
         SceneManager.LoadScene(scenePath);
     }
 
-    public static void StartSingleplayer()
+    public static void LoadSingleplayer()
     {
-        SceneManager.LoadScene("Level1");
+        singlePlayer = true;
+        currentLevel = 1;
+        SceneManager.LoadScene("Level" + currentLevel);
+    }
+
+    public static void LoadSingleplayer(bool next)
+    {
+        singlePlayer = true;
+        if (next)
+        {
+            currentLevel++;
+        }
+        SceneManager.LoadScene("Level" + currentLevel);
+    }
+
+    public static void ClearScene()
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Bullet"))
+        {
+            Destroy(go);
+        }
     }
 
     public static void StartMultiplayer()
     {
+        for (int i = 1; i <= multiplayerLevels; i++)
+        {
+            levelsRemaining.Add(i);
+        }
+        LoadMultiplayer();
+    }
 
+    public static void LoadMultiplayer()
+    {
+        if (levelsRemaining.Count == 0)
+        {
+            StartMultiplayer();
+        }
+        int nextLevel = Random.Range(0, levelsRemaining.Count - 1);
+        SceneManager.LoadScene("Multiplayer" + levelsRemaining[nextLevel]);
+        levelsRemaining.Remove(nextLevel);
     }
 
     async public static void CloseGame()

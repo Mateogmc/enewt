@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using UnityEngine.SceneManagement;
 
 public class MenuNavigator : MonoBehaviour
 {
@@ -49,18 +48,19 @@ public class MenuNavigator : MonoBehaviour
 
     async void OptionSelected()
     {
-        Fader toBlack = Instantiate(fader);
-        toBlack.fading = true;
+        Instantiate(fader);
         changingScene = true;
-        await Task.Delay(1000);
+        await Task.Delay(Loader.fadingTime);
         switch (selection)
         {
             case 0:
-                Loader.StartSingleplayer();
+                Loader.singlePlayer = true;
+                Loader.LoadSingleplayer();
                 break;
 
             case 1:
-
+                Loader.singlePlayer = false;
+                Loader.LoadMultiplayer();
                 break;
 
             case 2:
@@ -75,8 +75,9 @@ public class MenuNavigator : MonoBehaviour
 
     async void EnterScene()
     {
-        Instantiate(fader);
-        await Task.Delay(1000);
+        Fader fromBlack = Instantiate(fader);
+        fromBlack.unFading = true;
+        await Task.Delay(Loader.fadingTime);
         changingScene = false;
     }
 

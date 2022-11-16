@@ -87,3 +87,9 @@
 - Finalizado el menú principal
 - Creado menú de opciones
 - Creado sistema de guardado de opciones (Por ahora audio, en el futuro avance en niveles)
+
+#### 16/11/2022
+
+- Creado sistema de carga secuencial de niveles para un jugador
+- Creado algoritmo de carga aleatoria de niveles multijugador
+- Creada lógica de cambio de nivel

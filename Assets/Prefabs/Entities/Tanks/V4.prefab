@@ -157,7 +157,7 @@ MonoBehaviour:
   aimSpeed: 100
   fireForce: 8
   maxBounces: 3
-  maxBullets: 1
+  maxBullets: 2
   fireCooldown: 4
 --- !u!1001 &589469034940595252
 PrefabInstance:

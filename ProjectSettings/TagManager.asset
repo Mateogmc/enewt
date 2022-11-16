@@ -11,6 +11,7 @@ TagManager:
   - Void
   - Water
   - MenuMusic
+  - GameMusic
   layers:
   - Default
   - TransparentFX

@@ -97,10 +97,9 @@ public class OptionsNavigator : MonoBehaviour
     {
         if (selection == 2)
         {
-            Fader toBlack = Instantiate(fader);
-            toBlack.fading = true;
+            Instantiate(fader);
             changingScene = true;
-            await Task.Delay(1000);
+            await Task.Delay(Loader.fadingTime);
             Loader.ChangeScene("MainMenu");
         }
     }
@@ -156,7 +155,6 @@ public class OptionsNavigator : MonoBehaviour
         {
             movedLeft = false;
         }
-        Debug.Log(Input.GetAxis("Horizontal1"));
     }
 
     void SelectionManagement()
@@ -191,8 +189,9 @@ public class OptionsNavigator : MonoBehaviour
 
     async void EnterScene()
     {
-        Instantiate(fader);
-        await Task.Delay(1000);
+        Fader fromBlack = Instantiate(fader);
+        fromBlack.unFading = true;
+        await Task.Delay(Loader.fadingTime);
         changingScene = false;
     }
 }
