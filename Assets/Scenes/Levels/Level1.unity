@@ -210,10 +210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fader: {fileID: 6298174273495618486, guid: 7179c6d94435b394ea19e8bc05f2f38d, type: 3}
-  numberOfEnemies: 0
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!4 &78506034
 Transform:
   m_ObjectHideFlags: 0
@@ -4804,7 +4800,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

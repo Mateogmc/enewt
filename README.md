@@ -93,3 +93,5 @@
 - Creado sistema de carga secuencial de niveles para un jugador
 - Creado algoritmo de carga aleatoria de niveles multijugador
 - Creada lógica de cambio de nivel
+- Primera build completamente funcional _(!!!Hurra)_
+	_>Ejecutar el archivo "Wiin't Tanks" de Download This

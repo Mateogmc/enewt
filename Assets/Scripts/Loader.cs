@@ -8,6 +8,7 @@ public class Loader : MonoBehaviour
     static AudioManager menuMusic;
     static AudioManager gameMusic;
     static int currentLevel;
+    static int levelCount = 10;
     static List<int> levelsRemaining = new List<int>();
     public static int multiplayerLevels = 1;
     public static bool singlePlayer;
@@ -53,7 +54,13 @@ public class Loader : MonoBehaviour
         {
             currentLevel++;
         }
-        SceneManager.LoadScene("Level" + currentLevel);
+        if (currentLevel == levelCount)
+        {
+            SceneManager.LoadScene("Congratulations");
+        } else
+        {
+            SceneManager.LoadScene("Level" + currentLevel);
+        }
     }
 
     public static void ClearScene()

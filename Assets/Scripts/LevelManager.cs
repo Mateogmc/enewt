@@ -48,6 +48,19 @@ public class LevelManager : MonoBehaviour
                 LevelClear();
             }
         }
+        if (Input.GetKeyDown(KeyCode.JoystickButton7) && running)
+        {
+            running = false;
+            ExitToMenu();
+        }
+    }
+
+    async void ExitToMenu()
+    {
+        Loader.ClearScene();
+        Instantiate(fader);
+        await Task.Delay(Loader.fadingTime);
+        Loader.ChangeScene("MainMenu");
     }
 
     async void EnterScene()

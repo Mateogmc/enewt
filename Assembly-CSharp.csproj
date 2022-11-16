@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\GameFinished.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
