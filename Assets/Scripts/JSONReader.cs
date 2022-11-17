@@ -5,7 +5,7 @@ using System.IO;
 
 public class JSONReader
 {
-    public string path = "Assets/Scripts/controls.config";
+    public string path = "controls.config";
 
     [System.Serializable]
     public class Controls

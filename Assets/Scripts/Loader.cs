@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Loader : MonoBehaviour
 {
-    static AudioManager menuMusic;
-    static AudioManager gameMusic;
     static int currentLevel;
     static int levelCount = 10;
     static List<int> levelsRemaining = new List<int>();
@@ -17,22 +15,7 @@ public class Loader : MonoBehaviour
     void Start()
     {
         Options.InitialSettings();
-        menuMusic = GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<AudioManager>();
-        gameMusic = GameObject.FindGameObjectWithTag("GameMusic").GetComponent<AudioManager>();
-        menuMusic.PlayMusic();
         ChangeScene("MainMenu");
-    }
-
-    public static void PlayMenuMusic()
-    {
-        gameMusic.PauseMusic();
-        menuMusic.PlayMusic();
-    }
-
-    public static void PlayGameMusic()
-    {
-        menuMusic.PauseMusic();
-        gameMusic.PlayMusic();
     }
 
     public static void ChangeScene(string scenePath)
@@ -54,7 +37,7 @@ public class Loader : MonoBehaviour
         {
             currentLevel++;
         }
-        if (currentLevel == levelCount)
+        if (currentLevel == levelCount + 1)
         {
             SceneManager.LoadScene("Congratulations");
         } else

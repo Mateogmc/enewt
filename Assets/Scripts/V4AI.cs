@@ -34,15 +34,19 @@ public class V4AI : MonoBehaviour
 
     private void Update()
     {
-        if (player != null)
+        if (!Options.paused)
         {
-            CheckDirection();
-            PredictPosition();
-            Move();
-            Fire(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 0);
-        } else
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                CheckDirection();
+                PredictPosition();
+                Move();
+                Fire(cannon.transform.position, new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 0);
+            }
+            else
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+            }
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.Audio;
 
 public class MenuNavigator : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class MenuNavigator : MonoBehaviour
     bool movedUp = false;
     bool changingScene;
 
+    SoundManager soundManager;
+
 
     void Start()
     {
@@ -33,6 +36,7 @@ public class MenuNavigator : MonoBehaviour
         multiplayerRenderer = multiplayer.GetComponent<SpriteRenderer>();
         optionsRenderer = options.GetComponent<SpriteRenderer>();
         exitRenderer = exit.GetComponent<SpriteRenderer>();
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
         changingScene = true;
         EnterScene();
     }
@@ -48,17 +52,20 @@ public class MenuNavigator : MonoBehaviour
 
     async void OptionSelected()
     {
+        soundManager.PlaySound(soundManager.menuSelect);
         Instantiate(fader);
         changingScene = true;
         await Task.Delay(Loader.fadingTime);
         switch (selection)
         {
             case 0:
+                Options.playing = true;
                 Loader.singlePlayer = true;
                 Loader.LoadSingleplayer();
                 break;
 
             case 1:
+                Options.playing = true;
                 Loader.singlePlayer = false;
                 Loader.LoadMultiplayer();
                 break;
@@ -90,6 +97,7 @@ public class MenuNavigator : MonoBehaviour
 
         if (Input.GetKeyDown((KeyCode)controls.keyboard.backwards) || (Input.GetAxis("Vertical1") > 0.9 && !movedUp))
         {
+            soundManager.PlaySound(soundManager.menuNavigation);
             selection++;
             if (selection > 3)
             {
@@ -99,6 +107,7 @@ public class MenuNavigator : MonoBehaviour
         }
         else if (Input.GetKeyDown((KeyCode)controls.keyboard.forward) || (Input.GetAxis("Vertical1") < -0.9 && !movedDown))
         {
+            soundManager.PlaySound(soundManager.menuNavigation);
             selection--;
             if (selection < 0)
             {

@@ -7,10 +7,12 @@ public class Options
 {
     public static float musicVolume = 1f;
     public static float soundVolume = 1f;
+    public static bool paused = false;
+    public static bool playing = false;
 
     public static void InitialSettings()
     {
-        using (StreamReader sr = new StreamReader("Assets/Scripts/options.config"))
+        using (StreamReader sr = new StreamReader("options.config"))
         {
             musicVolume = float.Parse(sr.ReadLine());
             soundVolume = float.Parse(sr.ReadLine());
@@ -19,7 +21,7 @@ public class Options
 
     private static void WriteVolume()
     {
-        using (StreamWriter sw = new StreamWriter("Assets/Scripts/options.config"))
+        using (StreamWriter sw = new StreamWriter("options.config"))
         {
             sw.WriteLine(musicVolume.ToString());
             sw.WriteLine(soundVolume.ToString());

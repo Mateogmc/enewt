@@ -33,14 +33,18 @@ public class V1AI: MonoBehaviour
 
     private void Update()
     {
-        if (player != null)
+        if (!Options.paused)
         {
-            CheckDirection();
-            Move();
-            Fire();
-        } else
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                CheckDirection();
+                Move();
+                Fire();
+            }
+            else
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+            }
         }
     }
 

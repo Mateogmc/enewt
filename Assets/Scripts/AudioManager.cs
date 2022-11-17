@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource source;
+    public AudioSource menuMusic;
+    public AudioSource gameMusic;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        source = GetComponent<AudioSource>();
+        menuMusic.Play();
+        gameMusic.Play();
     }
 
     private void Update()
     {
-        source.volume = Options.musicVolume;
-    }
-
-    public void PlayMusic()
-    {
-        if (!source.isPlaying)
+        if (Options.playing)
         {
-            source.Play();
+            gameMusic.volume = (Options.paused ? Options.musicVolume/2 : Options.musicVolume);
+            menuMusic.volume = 0f;
+        } else
+        {
+            menuMusic.volume = Options.musicVolume;
+            gameMusic.volume = 0f;
         }
-    }
-
-    public void PauseMusic()
-    {
-        source.Stop();
     }
 }

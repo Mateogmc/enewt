@@ -31,6 +31,8 @@ public class OptionsNavigator : MonoBehaviour
     bool movedRight = false;
     bool changingScene;
 
+    SoundManager soundManager;
+
     void Start()
     {
         selection = 0;
@@ -42,6 +44,7 @@ public class OptionsNavigator : MonoBehaviour
         soundRenderer = sound.GetComponent<SpriteRenderer>();
         soundSliderRenderer = soundSlider.GetComponent<SpriteRenderer>();
         soundSliderDeactivatedRenderer = soundSliderDeactivated.GetComponent<SpriteRenderer>();
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
 
 
         exitRenderer = exit.GetComponent<SpriteRenderer>();
@@ -97,6 +100,7 @@ public class OptionsNavigator : MonoBehaviour
     {
         if (selection == 2)
         {
+            soundManager.PlaySound(soundManager.menuSelect);
             Instantiate(fader);
             changingScene = true;
             await Task.Delay(Loader.fadingTime);
@@ -113,6 +117,7 @@ public class OptionsNavigator : MonoBehaviour
 
         if (Input.GetKeyDown((KeyCode)controls.keyboard.backwards) || (Input.GetAxis("Vertical1") > 0.9 && !movedUp))
         {
+            soundManager.PlaySound(soundManager.menuNavigation);
             selection++;
             if (selection > 2)
             {
@@ -122,6 +127,7 @@ public class OptionsNavigator : MonoBehaviour
         }
         else if (Input.GetKeyDown((KeyCode)controls.keyboard.forward) || (Input.GetAxis("Vertical1") < -0.9 && !movedDown))
         {
+            soundManager.PlaySound(soundManager.menuNavigation);
             selection--;
             if (selection < 0)
             {
@@ -132,11 +138,13 @@ public class OptionsNavigator : MonoBehaviour
         if (Input.GetKeyDown((KeyCode)controls.keyboard.rotLeft) || (Input.GetAxis("Horizontal1") < -0.9 && !movedRight))
         {
             ChangeVolume(false);
+            soundManager.PlaySound(soundManager.menuSlider);
             movedRight = true;
         }
         else if (Input.GetKeyDown((KeyCode)controls.keyboard.rotRight) || (Input.GetAxis("Horizontal1") > 0.9 && !movedLeft))
         {
             ChangeVolume(true);
+            soundManager.PlaySound(soundManager.menuSlider);
             movedLeft = true;
         }
         if (Input.GetAxis("Vertical1") > -0.6)

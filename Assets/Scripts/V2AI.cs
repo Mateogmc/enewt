@@ -60,28 +60,32 @@ public class V2AI : MonoBehaviour
 
     void Update()
     {
-        if (player != null)
+        if (!Options.paused)
         {
-            if (path == null)
+            if (player != null)
             {
-                return;
-            }
+                if (path == null)
+                {
+                    return;
+                }
 
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                reachedEndOfPath = true;
-                return;
+                if (currentWaypoint >= path.vectorPath.Count)
+                {
+                    reachedEndOfPath = true;
+                    return;
+                }
+                else
+                {
+                    reachedEndOfPath = false;
+                }
+                Aim();
+                Move();
+                Fire();
             }
             else
             {
-                reachedEndOfPath = false;
+                player = GameObject.FindGameObjectWithTag("Player");
             }
-            Aim();
-            Move();
-            Fire();
-        } else
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 

@@ -8,6 +8,13 @@ public class Weapon : MonoBehaviour
     List<GameObject> bullets = new List<GameObject>();
     public Transform firePoint;
 
+    public SoundManager soundManager;
+
+    void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
+    }
+
     public void Fire(int maxBounces, float fireForce, int maxBullets)
     {
         if (bullets.Count < maxBullets)
@@ -16,6 +23,7 @@ public class Weapon : MonoBehaviour
             bullet.GetComponent<Bullet>().maxBounces = maxBounces;
             bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * fireForce, ForceMode2D.Impulse);
             bullets.Add(bullet);
+            soundManager.PlaySound(soundManager.cannonFire);
         } else
         {
             for (int i = 0; i < maxBullets; i++)
@@ -26,6 +34,7 @@ public class Weapon : MonoBehaviour
                     bullet.GetComponent<Bullet>().maxBounces = maxBounces;
                     bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * fireForce, ForceMode2D.Impulse);
                     bullets[i] = bullet;
+                    soundManager.PlaySound(soundManager.cannonFire);
                     break;
                 }
             }

@@ -9,15 +9,21 @@ public class LevelManager : MonoBehaviour
     public Fader fader;
     bool singleplayer;
     bool running = false;
+    int lastNumberOfEnemies;
+
+    SoundManager soundManager;
 
     void Start()
     {
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
         singleplayer = Loader.singlePlayer;
         EnterScene();
     }
 
     void Update()
     {
+        if (!Options.paused)
+        {
         if (singleplayer)
         {
             int numberOfEnemies = 0;
@@ -34,7 +40,11 @@ public class LevelManager : MonoBehaviour
             {
                 running = false;
                 LevelClear();
+            } else if (numberOfEnemies < lastNumberOfEnemies)
+            {
+                soundManager.PlaySound(soundManager.tankDestroyed);
             }
+            lastNumberOfEnemies = numberOfEnemies;
         } else
         {
             int numberOfPlayers = 0;
@@ -48,18 +58,32 @@ public class LevelManager : MonoBehaviour
                 LevelClear();
             }
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton7) && running)
+        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.JoystickButton7)) && running)
+            {
+                Time.timeScale = 0f;
+                Options.paused = true;
+            }
+        } else
         {
-            running = false;
-            ExitToMenu();
+            if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                Options.paused = false;
+                Time.timeScale = 1f;
+            } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+            {
+                Time.timeScale = 1f;
+                ExitToMenu();
+            }
         }
     }
 
     async void ExitToMenu()
     {
+        soundManager.PlaySound(soundManager.exitLevel);
         Loader.ClearScene();
         Instantiate(fader);
         await Task.Delay(Loader.fadingTime);
+        Options.playing = false;
         Loader.ChangeScene("MainMenu");
     }
 
@@ -76,6 +100,7 @@ public class LevelManager : MonoBehaviour
     async void LevelFailed()
     {
         Loader.ClearScene();
+        soundManager.PlaySound(soundManager.levelLost);
         Instantiate(fader);
         await Task.Delay(Loader.fadingTime);
         Loader.LoadSingleplayer(false);
@@ -84,6 +109,7 @@ public class LevelManager : MonoBehaviour
     async void LevelClear()
     {
         Loader.ClearScene();
+        soundManager.PlaySound(soundManager.levelWon);
         Instantiate(fader);
         await Task.Delay(Loader.fadingTime);
         if (singleplayer)

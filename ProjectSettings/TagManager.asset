@@ -5,13 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
-  - Bullet
   - Tank
+  - Bullet
   - Prediction
   - Void
-  - Water
-  - MenuMusic
   - GameMusic
+  - MenuMusic
+  - Sound
   layers:
   - Default
   - TransparentFX
@@ -50,20 +50,20 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 556589243
-    locked: 0
-  - name: Foreground
-    uniqueID: 196775721
+    uniqueID: 1279539433
     locked: 0
   - name: Player
-    uniqueID: 3761761141
+    uniqueID: 2353344227
     locked: 0
-  - name: Slider
-    uniqueID: 1329829219
+  - name: Foreground
+    uniqueID: 3210491355
+    locked: 0
+  - name: DeactivatedUI
+    uniqueID: 3626046707
     locked: 0
   - name: UI
-    uniqueID: 17846725
+    uniqueID: 1266806749
     locked: 0
-  - name: Fade
-    uniqueID: 630368315
+  - name: Fader
+    uniqueID: 1281674873
     locked: 0

@@ -36,8 +36,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        InputCheck();
-        Move();
+        if (!Options.paused)
+        {
+            InputCheck();
+            Move();
+        }
     }
 
     void InputCheck()

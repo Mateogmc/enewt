@@ -12,21 +12,27 @@ public class Bullet : MonoBehaviour
     public int maxBounces;
     int currentBounces = 0;
 
+    SoundManager soundManager;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Physics2D.IgnoreLayerCollision(8, 7, true);
         magnitude = rb.velocity.magnitude;
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
     }
 
     private void Update()
     {
-        rb.velocity = rb.velocity.normalized * magnitude;
-        lastVelocity = rb.velocity;
-        rb.rotation = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-        if (rb.velocity == Vector2.zero || transform.position.x < -5 || transform.position.x > 5 || transform.position.y < -4.5 || transform.position.y > 5.5)
+        if (!Options.paused)
         {
-            Destroy(gameObject);
+            rb.velocity = rb.velocity.normalized * magnitude;
+            lastVelocity = rb.velocity;
+            rb.rotation = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+            if (rb.velocity == Vector2.zero || transform.position.x < -5 || transform.position.x > 5 || transform.position.y < -4.5 || transform.position.y > 5.5)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -38,10 +44,12 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.tag != "Wall" || currentBounces >= maxBounces)
         {
+            soundManager.PlaySound(soundManager.bulletBreak);
             Destroy(gameObject);
         }  
         else if (collision.gameObject.tag == "Wall")
         {
+            soundManager.PlaySound(soundManager.bulletRebound);
             float x = collision.contacts[0].normal.x;
             float y = collision.contacts[0].normal.y;
             Vector2 newVelocity = new Vector2(x != 0 ? Mathf.Abs(lastVelocity.x) * x : lastVelocity.x , y != 0 ? Mathf.Abs(lastVelocity.y) * y : lastVelocity.y);

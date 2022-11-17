@@ -95,3 +95,9 @@
 - Creada lógica de cambio de nivel
 - Primera build completamente funcional _(!!!Hurra)_
 	_>Ejecutar el archivo "Wiin't Tanks" de Download This
+	
+#### 17/11/2022
+
+- Música compuesta y efectos de sonido sintetizados
+- Audio manejado por dos GameObjects, uno se ocupa de la música y el otro de los sonidos
+- Implementado menú de pausa
