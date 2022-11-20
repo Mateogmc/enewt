@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     List<GameObject> bullets = new List<GameObject>();
     public Transform firePoint;
 
-    public SoundManager soundManager;
+    SoundManager soundManager;
 
     void Start()
     {

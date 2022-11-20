@@ -11,6 +11,14 @@ public class GameFinished : MonoBehaviour
     bool changing = false;
     float time = 0f;
 
+    public SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
+        EnterScene();
+    }
+
     private void Update()
     {
         time += Time.deltaTime;
@@ -26,11 +34,24 @@ public class GameFinished : MonoBehaviour
         }
     }
 
+    async void EnterScene()
+    {
+        Options.paused = true;
+        Fader fromBlack = Instantiate(fader);
+        fromBlack.unFading = true;
+        Time.timeScale = 0f;
+        await Task.Delay(Loader.fadingTime);
+        Time.timeScale = 1f;
+        Options.paused = false;
+    }
+
     async void ExitToMenu()
     {
+        soundManager.PlaySound(soundManager.exitLevel);
         Loader.ClearScene();
         Instantiate(fader);
         await Task.Delay(Loader.fadingTime);
+        Options.playing = false;
         Loader.ChangeScene("MainMenu");
     }
 }

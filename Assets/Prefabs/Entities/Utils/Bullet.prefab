@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hole:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 272
   maxBounces: 0
 --- !u!70 &-3315512380208708417
 CapsuleCollider2D:

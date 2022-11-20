@@ -150,7 +150,7 @@ MonoBehaviour:
   player: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 464
   aimDirection: 0
   aimSpeed: 80
   fireForce: 4

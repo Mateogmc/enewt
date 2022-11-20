@@ -71,16 +71,16 @@ public class JSONReader
         controls.player1.keyboard.rotLeft = (int)KeyCode.LeftArrow;
         controls.player1.keyboard.rotRight = (int)KeyCode.RightArrow;
         controls.player1.keyboard.aimLeft = (int)KeyCode.J;
-        controls.player1.keyboard.aimRight = (int)KeyCode.K;
-        controls.player1.keyboard.fire = (int)KeyCode.L;
+        controls.player1.keyboard.aimRight = (int)KeyCode.L;
+        controls.player1.keyboard.fire = (int)KeyCode.K;
         controls.player1.keyboard.forward = (int)KeyCode.UpArrow;
         controls.player1.keyboard.backwards = (int)KeyCode.DownArrow;
 
         controls.player2.keyboard.rotLeft = (int)KeyCode.A;
         controls.player2.keyboard.rotRight = (int)KeyCode.D;
         controls.player2.keyboard.aimLeft = (int)KeyCode.C;
-        controls.player2.keyboard.aimRight = (int)KeyCode.V;
-        controls.player2.keyboard.fire = (int)KeyCode.B;
+        controls.player2.keyboard.aimRight = (int)KeyCode.B;
+        controls.player2.keyboard.fire = (int)KeyCode.V;
         controls.player2.keyboard.forward = (int)KeyCode.W;
         controls.player2.keyboard.backwards = (int)KeyCode.S;
 
@@ -91,7 +91,7 @@ public class JSONReader
         controls.player1.gamepad.backwards = "Backwards1";
 
         controls.player2.gamepad.aim = "Aim2";
-        controls.player2.gamepad.fire = (int)KeyCode.Joystick2Button0;
+        controls.player2.gamepad.fire = (int)KeyCode.Joystick2Button5;
         controls.player2.gamepad.horizontal = "Horizontal2";
         controls.player2.gamepad.forward = "Forward2";
         controls.player2.gamepad.backwards = "Backwards2";

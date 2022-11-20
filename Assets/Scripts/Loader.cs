@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Loader : MonoBehaviour
 {
-    static int currentLevel;
-    static int levelCount = 10;
+    public static int currentLevel;
+    static int levelCount = 20;
     static List<int> levelsRemaining = new List<int>();
-    public static int multiplayerLevels = 1;
+    public static int multiplayerLevels = 5;
     public static bool singlePlayer;
     public static int fadingTime = 1200;
 
     void Start()
     {
         Options.InitialSettings();
-        ChangeScene("MainMenu");
+        ChangeScene("Tutorial");
     }
 
     public static void ChangeScene(string scenePath)
@@ -46,6 +46,20 @@ public class Loader : MonoBehaviour
         }
     }
 
+    public static void LoadSingleplayer(int level)
+    {
+        if (level <= 0)
+        {
+            level = levelCount;
+        }
+        else if (level > levelCount)
+        {
+            level = 1;
+        }
+        currentLevel = level;
+        SceneManager.LoadScene("Level" + level);
+    }
+
     public static void ClearScene()
     {
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Bullet"))
@@ -69,9 +83,24 @@ public class Loader : MonoBehaviour
         {
             StartMultiplayer();
         }
-        int nextLevel = Random.Range(0, levelsRemaining.Count - 1);
-        SceneManager.LoadScene("Multiplayer" + levelsRemaining[nextLevel]);
-        levelsRemaining.Remove(nextLevel);
+        int nextLevel = Random.Range(0, levelsRemaining.Count);
+
+        currentLevel = levelsRemaining[nextLevel];
+        levelsRemaining.Remove(currentLevel);
+        SceneManager.LoadScene("Multiplayer" + currentLevel);
+    }
+
+    public static void LoadMultiplayer(int level)
+    {
+        if (level <= 0)
+        {
+            level = multiplayerLevels;
+        } else if (level > multiplayerLevels)
+        {
+            level = 1;
+        }
+        currentLevel = level;
+        SceneManager.LoadScene("Multiplayer" + level);
     }
 
     async public static void CloseGame()

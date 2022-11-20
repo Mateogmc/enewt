@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 public class LevelManager : MonoBehaviour
 {
     public Fader fader;
+    public GameObject pauseMenu;
+    GameObject pause;
     bool singleplayer;
     bool running = false;
     int lastNumberOfEnemies;
@@ -24,53 +26,80 @@ public class LevelManager : MonoBehaviour
     {
         if (!Options.paused)
         {
-        if (singleplayer)
-        {
-            int numberOfEnemies = 0;
-            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tank"))
+            if (singleplayer)
             {
-                numberOfEnemies++;
+                int numberOfEnemies = 0;
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tank"))
+                {
+                    numberOfEnemies++;
+                }
+                if (GameObject.FindGameObjectWithTag("Player") == null && running)
+                {
+                    running = false;
+                    LevelFailed();
+                }
+                if (numberOfEnemies == 0 && running)
+                {
+                    running = false;
+                    LevelClear();
+                }
+                else if (numberOfEnemies < lastNumberOfEnemies)
+                {
+                    soundManager.PlaySound(soundManager.tankDestroyed);
+                }
+                lastNumberOfEnemies = numberOfEnemies;
+                if ((Input.GetAxis("LevelSelect") < -0.3f || Input.GetKeyDown(KeyCode.O)) && running)
+                {
+                    running = false;
+                    ChangeLevel(--Loader.currentLevel);
+                }
+                else if ((Input.GetAxis("LevelSelect") > 0.3f || Input.GetKeyDown(KeyCode.P)) && running)
+                {
+                    running = false;
+                    ChangeLevel(++Loader.currentLevel);
+                }
             }
-            if (GameObject.FindGameObjectWithTag("Player") == null && running)
+            else
             {
-                running = false;
-                LevelFailed();
+                int numberOfPlayers = 0;
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    numberOfPlayers++;
+                }
+                if (numberOfPlayers <= 1 && running)
+                {
+                    running = false;
+                    LevelClear();
+                }
+                if ((Input.GetAxis("LevelSelect") < -0.3f || Input.GetKeyDown(KeyCode.O)) && running)
+                {
+                    running = false;
+                    ChangeMultiplayerLevel(--Loader.currentLevel);
+                }
+                else if ((Input.GetAxis("LevelSelect") > 0.3f || Input.GetKeyDown(KeyCode.P)) && running)
+                {
+                    running = false;
+                    ChangeMultiplayerLevel(++Loader.currentLevel);
+                }
             }
-            if (numberOfEnemies == 0 && running)
+            if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.JoystickButton7)) && running)
             {
-                running = false;
-                LevelClear();
-            } else if (numberOfEnemies < lastNumberOfEnemies)
-            {
-                soundManager.PlaySound(soundManager.tankDestroyed);
-            }
-            lastNumberOfEnemies = numberOfEnemies;
-        } else
-        {
-            int numberOfPlayers = 0;
-            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                numberOfPlayers++;
-            }
-            if (numberOfPlayers <= 1 && running)
-            {
-                running = false;
-                LevelClear();
-            }
-        }
-        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.JoystickButton7)) && running)
-            {
+                pause = Instantiate(pauseMenu);
                 Time.timeScale = 0f;
                 Options.paused = true;
             }
-        } else
+        }
+        else
         {
             if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.JoystickButton0))
             {
+                Destroy(pause);
                 Options.paused = false;
                 Time.timeScale = 1f;
-            } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
             {
+                Destroy(pause);
                 Time.timeScale = 1f;
                 ExitToMenu();
             }
@@ -83,6 +112,7 @@ public class LevelManager : MonoBehaviour
         Loader.ClearScene();
         Instantiate(fader);
         await Task.Delay(Loader.fadingTime);
+        Options.paused = false;
         Options.playing = false;
         Loader.ChangeScene("MainMenu");
     }
@@ -115,9 +145,28 @@ public class LevelManager : MonoBehaviour
         if (singleplayer)
         {
             Loader.LoadSingleplayer(true);
-        } else
+        }
+        else
         {
             Loader.LoadMultiplayer();
         }
+    }
+
+    async void ChangeLevel(int level)
+    {
+        Loader.ClearScene();
+        soundManager.PlaySound(soundManager.menuSelect);
+        Instantiate(fader);
+        await Task.Delay(Loader.fadingTime);
+        Loader.LoadSingleplayer(level);
+    }
+
+    async void ChangeMultiplayerLevel(int level)
+    {
+        Loader.ClearScene();
+        soundManager.PlaySound(soundManager.menuSelect);
+        Instantiate(fader);
+        await Task.Delay(Loader.fadingTime);
+        Loader.LoadMultiplayer(level);
     }
 }

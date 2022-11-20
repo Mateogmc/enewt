@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     JSONReader.Player controls;
     Rigidbody2D rb;
     public int playerId;
+    public LayerMask ignoreLayer;
 
     public float currentSpeed = 0f;
     public float acceleration = 4f;
@@ -114,10 +115,20 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), 0.5f, ~ignoreLayer);
+        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), new Vector2(Mathf.Cos(aimDirection * Mathf.Deg2Rad), Mathf.Sin(aimDirection * Mathf.Deg2Rad)), Color.red, 0.5f);
         if (Time.time >= lastFired + fireCooldown)
         {
-            weapon.Fire(maxBounces, fireForce, maxBullets);
-            lastFired = Time.time;
+            if (hit.collider == null)
+            {
+                weapon.Fire(maxBounces, fireForce, maxBullets);
+                lastFired = Time.time;
+            }
+            else if (hit.collider.tag != "Wall")
+            {
+                weapon.Fire(maxBounces, fireForce, maxBullets);
+                lastFired = Time.time;
+            }
         }
     }
 

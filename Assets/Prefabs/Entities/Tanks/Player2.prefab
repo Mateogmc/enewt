@@ -148,6 +148,9 @@ MonoBehaviour:
   weapon: {fileID: 1806355314690601447}
   cannon: {fileID: 1342036639339103003}
   playerId: 2
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 449
   currentSpeed: 0
   acceleration: 4
   maxSpeed: 2

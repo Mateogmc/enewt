@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Physics2D.IgnoreLayerCollision(8, 7, true);
+        Physics2D.IgnoreLayerCollision(4, 7, true);
         magnitude = rb.velocity.magnitude;
         soundManager = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
     }
@@ -44,18 +45,18 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.tag != "Wall" || currentBounces >= maxBounces)
         {
-            soundManager.PlaySound(soundManager.bulletBreak);
             Destroy(gameObject);
+            soundManager.PlaySound(soundManager.bulletBreak);
         }  
         else if (collision.gameObject.tag == "Wall")
         {
-            soundManager.PlaySound(soundManager.bulletRebound);
             float x = collision.contacts[0].normal.x;
             float y = collision.contacts[0].normal.y;
             Vector2 newVelocity = new Vector2(x != 0 ? Mathf.Abs(lastVelocity.x) * x : lastVelocity.x , y != 0 ? Mathf.Abs(lastVelocity.y) * y : lastVelocity.y);
 
             rb.velocity = newVelocity;
             currentBounces++;
+            soundManager.PlaySound(soundManager.bulletRebound);
         }
     }
 }

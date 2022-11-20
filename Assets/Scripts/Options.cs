@@ -12,6 +12,7 @@ public class Options
 
     public static void InitialSettings()
     {
+        Cursor.visible = false;
         using (StreamReader sr = new StreamReader("options.config"))
         {
             musicVolume = float.Parse(sr.ReadLine());

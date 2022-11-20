@@ -52,11 +52,11 @@ TagManager:
   - name: Background
     uniqueID: 1279539433
     locked: 0
-  - name: Player
-    uniqueID: 2353344227
-    locked: 0
   - name: Foreground
     uniqueID: 3210491355
+    locked: 0
+  - name: Player
+    uniqueID: 2353344227
     locked: 0
   - name: DeactivatedUI
     uniqueID: 3626046707

@@ -151,7 +151,7 @@ MonoBehaviour:
   player: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 464
   aiPath: {fileID: 0}
   currentSpeed: 0
   acceleration: 4

@@ -101,3 +101,16 @@
 - Música compuesta y efectos de sonido sintetizados
 - Audio manejado por dos GameObjects, uno se ocupa de la música y el otro de los sonidos
 - Implementado menú de pausa
+
+#### 18/11/2022
+
+- Ampliada la selección de niveles
+- Implementada interfaz para el menú de pausa
+
+#### 19/11/2022
+
+- Implementada pantalla tutorial antes de iniciar el juego
+
+#### 20/11/2022
+
+- Ampliada la selección de niveles

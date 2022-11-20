@@ -10,8 +10,6 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        menuMusic.Play();
-        gameMusic.Play();
     }
 
     private void Update()

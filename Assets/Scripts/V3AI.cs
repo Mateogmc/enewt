@@ -37,7 +37,7 @@ public class V3AI : MonoBehaviour
     public int maxBullets;
     public float fireCooldown;
     float lastFired;
-    int fireDelay = 1000;
+    public int fireDelay = 1000;
 
     private void Start()
     {

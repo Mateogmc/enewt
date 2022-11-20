@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1941623069
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8b23309aba7e5c46b88be2edc66ce56, type: 3}
   m_Color: {r: 0.9921569, g: 0.9921569, b: 0.9921569, a: 1}
@@ -152,9 +152,9 @@ MonoBehaviour:
   targetPoint: {x: 0, y: 0, z: 0}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 464
   aimDirection: 0
-  aimSpeed: 80
+  aimSpeed: 50
   fireForce: 8
   maxBounces: 3
   maxBullets: 2
