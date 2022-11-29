@@ -1,13 +1,21 @@
 # ENEWT
 
-## Proyecto de fin de ciclo de Desarrollo de Aplicaciones Multiplataforma
+### Version 1.0.1
+- Reestructured tank scripts with inheritance
+- Added support for new terrain types:
+    - _Grass_
+    - _Dirt_
+    - _Gunk_
+
+## VERSION 1.0
+- *First functional build*
 
 ### Tipos de tanques
 
 #### *V1AI:* Warden
 - *Tipo de movimiento:* Estático
 - *Velocidad del proyectil:* Lento
-- *Cantidad de proyectiles:* 1
+- *Cantidad de proyectiles:* 2
 - *Cadencia de tiro:* Rápida
 - *Rebotes máximos de los proyectiles:* 1
 
@@ -16,24 +24,24 @@
 #### *V2AI*: Seeker
 - *Tipo de movimiento:* Lento
 - *Velocidad del proyectil:* Lento
-- *Cantidad de proyectiles:* 1
+- *Cantidad de proyectiles:* 2
 - *Cadencia de tiro:* Lenta
-- *Rebotes máximos de los proyectiles:* 2
+- *Rebotes máximos de los proyectiles:* 1
 
 - *Comportamiento:* Seguirá al jugador por el camino más corto esquivando obstáculos. En cuanto exista contacto visual, esperará unos segundos, y si sigue existiendo contacto visual, disparará.
 
 #### *V3AI*: Barrager
 - *Tipo de movimiento:* Rápido
-- *Velocidad del proyectil:* Lento
+- *Velocidad del proyectil:* Rápido
 - *Cantidad de proyectiles:* 5
 - *Cadencia de tiro:* Muy rápida
-- *Rebotes máximos de los proyectiles:* 1
+- *Rebotes máximos de los proyectiles:* 0
 
 - *Comportamiento:* Seguirá al jugador por el camino más corto esquivando obstáculos hasta que esté a cierta distancia y exista línea de visión. En cuanto se cumplan esas condiciones, se empezará a mover en paralelo a la dirección al jugador y tras unas fracciones de segundo mientras exista línea de visión disparará una ráfaga de proyectiles.
 
 #### *V4AI*: Sniper
 - *Tipo de movimiento:* Estático
-- *Velocidad del proyectil:* Rápido
+- *Velocidad del proyectil:* Mut rápido
 - *Cantidad de proyectiles:* 1
 - *Cadencia de tiro:* Muy lenta
 - *Rebotes máximos de los proyectiles:* 3
